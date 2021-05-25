@@ -1,9 +1,14 @@
-package com.mybatis.jdbc;
+package com.mybatis.jdbc.entity;
 
+import lombok.Data;
+
+import java.time.Instant;
+
+@Data
 public class User {
     private String name;
 
-    private int age;
+    private Integer age;
 
-    private char sex;
+    private Integer id;
 }

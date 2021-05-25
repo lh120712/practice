@@ -105,6 +105,7 @@ class CachedThreadPoolTest{
 
 /**
  * 创建一个定长线程池，支持定时及周期性任务执行。延迟执行示例代码如下：
+ * ScheduledExecutorService比Timer更安全、功能更强大
  */
 class newScheduledThreadPoolTest{
     public static void main(String[] args) {
@@ -115,6 +116,32 @@ class newScheduledThreadPoolTest{
                 System.out.println("delay 3 seconds");
             }
         },3, TimeUnit.SECONDS);
+        scheduledExecutorService.shutdown();
+    }
+}
+
+/**
+ * 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行
+ */
+class newSingleThreadExecutorTest {
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        for (int i = 0; i <10 ; i++) {
+            final int index=i;
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println(index);
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+        executorService.shutdown();
+
     }
 }
 
